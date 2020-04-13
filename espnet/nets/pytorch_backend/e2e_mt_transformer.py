@@ -320,8 +320,8 @@ class E2E(MTInterface, torch.nn.Module):
                 vy[0] = hyp['yseq'][i]
 
                 # get nbest local scores and their ids
-                ys_mask = subsequent_mask(i + 1).unsqueeze(0)
-                ys = torch.tensor(hyp['yseq']).unsqueeze(0)
+                ys_mask = subsequent_mask(i + 1).to(xs_pad.device).unsqueeze(0)
+                ys = torch.tensor(hyp['yseq']).to(xs_pad.device).unsqueeze(0)
                 # FIXME: jit does not match non-jit result
                 if use_jit:
                     if traced_decoder is None:
